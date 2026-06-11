@@ -69,6 +69,7 @@ on:
 # GITHUB_TOKEN이 브랜치를 업데이트할 수 있도록 권한 부여
 permissions:
   contents: write
+  actions: write
 
 jobs:
   sync:
@@ -79,8 +80,9 @@ jobs:
       # GitHub CLI를 이용하여
       # Fork 저장소의 main 브랜치를
       # Upstream 저장소의 main 브랜치와 동기화
+      # GITHUB_TOKEN 대신 GH_TOKEN 만들어서 사용
       - name: Sync upstream with GitHub CLI
         run: |
           gh repo sync ${{ github.repository }} -b main
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
